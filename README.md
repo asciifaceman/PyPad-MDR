@@ -31,12 +31,19 @@ I do not have a back-end db control script just yet, getting around to it.
 For now, do this from command line:
 
 python
+
 import db_cmd
+
 from models import db, User
+
 new = User('username', 'email', 'password', admin=True, issecret=True) # issecret=False if you can't use g-auth
+
  #Collect the secret auth key (if you opted for it) and enter it into your g-auth app
+ 
 db.session.add(new)
+
 db.sessin.commit()
+
 exit()
 
  #This should get you started enough to start the app and log in to generate new content
