@@ -17,12 +17,17 @@ virtualenvironment with python 2.7.*
 
 pip installations:
 
-Flask (0.10.1)
-Flask-SQLAlchemy (1.0)
-Flask-WTF (0.9.1)
-SQLAlchemy (0.8.2)
-WTForms (1.0.4)
+*Flask (0.10.1)
+*Flask-SQLAlchemy (1.0)
+*Flask-WTF (0.9.1)
+*SQLAlchemy (0.8.2)
+*WTForms (1.0.4)
 
+
+Included dependencies(non-python):
+*Jquery/Jquery-ui
+*prettify (https://code.google.com/p/google-code-prettify/)
+*TinyMCE
 =============================================
 == Initial Run (if new user, and not me)
 
