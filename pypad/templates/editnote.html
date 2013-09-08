@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script src="{{url_for('static', filename="tinymce/js/tinymce/tinymce.min.js")}}"></script>
+<script>
+        /*tinymce.init({selector:'textarea'});*/
+        tinymce.init({
+            selector : 'textarea.note',
+            force_br_newlines : false,
+            force_p_newlines : false,
+            forced_root_block : 'div'
+        });
+</script>
+    {% if session.email %}
+    <h2>Edit Note</h2>
+    <form action="{{ url_for('updatenote') }}" method=post>
+        <div style="display: none;">
+            (Errors: {{ form.description.process_data(note.description) }})
+            {{ form.category.process_data(note.category) }}
+        </div>
+        {{ form.hidden_tag() }}
+
+        
+        ID: {{ form.noteid(readonly=true, value=note.id) }}
+
+        {% for message in form.title.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.title.label }}
+        {{ form.title(value=note.title) | safe}}
+
+        {% for message in form.description.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.description.label }}
+        {{ form.description (class="note") }}
+        <a href="javascript:;" onclick="tinymce.execCommand('mceToggleEditor', false, 'description');">Toggle Editor</a>
+
+        {{ form.category.label }}
+        {{ form.category | safe }}
+
+        {{ form.submit }}
+    </form>
+    {% else %}
+    <h1>You do not have permission to access this area.</h1>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="jumbo">
+        <h2>Existing Snippets<h2>
+        <h3>Browse, delete, modify<h3>
+    </div>
+    {% if session.email %}
+    <div class="container">
+    <table>
+        <thead>
+            <tr><th class="col1" width="50">ID</th><th class="col2" width="200">Title</th><th class="col3" width="100">Category</th><th class="col4" width="100">Language</th><th class="col5" width="150">Author</th><th class="col6" width="300">Created</th><th width="300">Functions</th></tr>
+        </thead>
+    {% for snip in snippets %}
+
+        <tr><td>{{ snip.id }}</td><td>{{ snip.title }}</td><td>{{ snip.category }}</td><td>{{ snip.language }}</td><td>{{ snip.author }}</td><td>{{ snip.pub_date }}</td><td><a href="{{ url_for('modsnip', function='delete', snip_id=snip.id) }}" onclick="return confirm('Really Delete Post?')">Delete</a> | <a href="{{ url_for('viewsnip', snip_id=snip.id) }}">View</a> | <a href="{{ url_for('editsnip', snip_id=snip.id) }}">Edit</a></tr>
+        
+    {% else %}
+        <p>There are no snippets. That might or might not be a problem</p>
+    {% endfor %}
+    </table>
+    </div>
+    {% else %}
+    <h1>You do not have permission to access this area.</h1>
+    {% endif %}
+{% endblock %}

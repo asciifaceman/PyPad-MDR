@@ -1,0 +1,10 @@
+
+.DS_Store
+
+pypad/secret_auth.pyc
+
+*.pyc
+
+*.zip
+
+venv/

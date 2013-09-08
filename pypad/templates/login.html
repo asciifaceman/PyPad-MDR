@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Login</h2>
+    <p>If you have an account, log in to modify or add content...</p>
+    <p>Remind me to implement google-auth tokens here...</p>
+    <form action="{{ url_for('login') }}" method=post>
+        {{ form.hidden_tag() }}
+
+        {% for message in form.email.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.email.label }}
+        {{ form.email }}
+
+        {% for message in form.password.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.password.label }}
+        {{ form.password }}
+
+        {% for message in form.auth.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.auth.label }}
+        {{ form.auth }}       
+
+        {{ form.submit }}
+    </form>
+{% endblock %}

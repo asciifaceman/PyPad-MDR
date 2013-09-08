@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PyPad MDR</title>
+        <strong><link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"></strong>
+        <script type=text/javascript src="{{ url_for('static', filename='jquery-ui-1.10.3/jquery-1.9.1.js') }}"></script>
+        <script type=text/javascript src="{{ url_for('static', filename='jquery-ui-1.10.3/ui/jquery-ui.js') }}"></script>
+        <script type=text/javascript src="{{ url_for('static', filename='prettify/run_prettify.js') }}"></script>
+        <script type="text/javascript">
+$(document).ready(function () {
+    $('#nav li').hover(
+        function () {
+            $('ul', this).stop().slideDown(100);
+
+        },
+        function () {
+            $('ul', this).stop().slideUp(100);
+
+        }
+    );
+});
+        </script>
+    </head>
+    <body>
+        <script type=text/javascript>
+            $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        </script>
+
+        <header>
+            <div class="container">
+                <h1 class="logo">PyPad MDR</h1>
+                <h1 class="login">
+                {% if session.email %}
+                Hello, {{ session.username }} <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                <a href="{{ url_for('login') }}">login</a>
+                {% endif %}
+                </h1>
+            </div>
+        </header>
+        <div class="container">
+        <ul id="nav">
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="#">Users</a>
+                <ul>
+                    <li><a href="{{ url_for('adduser') }}">Add</a></li>
+                    <li><a href="{{ url_for('listusers') }}">List</a></li>
+                </ul>
+            </li>
+            <li><a href="#" >Docs ></a>
+                <ul>
+                    <li><a href="{{ url_for('notes') }}">Notes</a></li>
+                    <li><a href="{{ url_for('snippets') }}">Snippets</a></li>
+                    <li><a href="{{ url_for('home') }}">How To</a></li>
+                </ul>
+                <div class="clear"></div>
+            </li>
+            <li><a href="#">New</a>
+                <ul>
+                    <li><a href="{{ url_for('newnote') }}">Note</a></li>
+                    <li><a href="{{ url_for('newsnip') }}">Snippet</a></li>
+                </ul>
+            </li>
+            
+        </ul>
+        </div>
+        <div class="clear"></div>        
+        <div class="container">
+        <br><br>
+        </div>
+
+        {% for message in get_flashed_messages() %}
+            <div class="flash-fine"><h1 class="flash2">{{ message }}</h1></div>
+        {% endfor %}
+
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <br><br><br><br>
+        <footer>
+            <div class="foot">
+                <h1 class="power">PyPad MDR &copy; 2013 <a href="http://charlescorbett.com">Charles C.</a> - Powered by Python Flask</h1>
+            </div>
+        </footer>
+    </body>
+</html>

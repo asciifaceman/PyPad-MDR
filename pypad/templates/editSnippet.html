@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script src="{{url_for('static', filename="tinymce/js/tinymce/tinymce.min.js")}}"></script>
+<script>
+        /*tinymce.init({selector:'textarea'});*/
+        tinymce.init({
+            selector : 'textarea.snippet',
+            force_br_newlines : false,
+            force_p_newlines : false,
+            forced_root_block : 'div'
+        });
+</script>
+    {% if session.email %}
+    <h2>Edit Snippet</h2>
+    <form action="{{ url_for('updatesnip') }}" method=post>
+        <div style="display: none;">
+        {{ form.desc.process_data(snip.description) | safe}}
+        {{ form.snippet.process_data(snip.snippet) | safe}}
+        {{ form.category.process_data(snip.category) }}
+        {{ form.language.process_data(snip.language) }}
+        </div>
+        {{ form.hidden_tag() }}
+
+        {{ form.snipid(readonly=true, value=snip.id) }}
+
+        {% for message in form.title.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.title.label }}
+        {{ form.title(value=snip.title) | safe}}
+
+        {% for message in form.desc.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.desc.label }}
+        {{ form.desc | safe}}
+
+        {% for message in form.snippet.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.snippet.label }}        
+        {{ form.snippet (class="snippet") | safe}}
+        <a class="btn" href="javascript:;" onclick="tinymce.execCommand('mceToggleEditor', false, 'snippet');">Toggle Editor</a>
+        
+        {{ form.category.label }}
+        {{ form.category | safe}}
+
+        {{ form.language.label }}
+        {{ form.language | safe}}
+
+        {{ form.submit }}
+    </form>
+    {% else %}
+    <h1>You do not have permission to access this area.</h1>
+    {% endif %}
+{% endblock %}

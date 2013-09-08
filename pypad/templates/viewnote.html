@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="{{url_for('static', filename="tinymce/js/tinymce/tinymce.min.js")}}"></script>
+<script>
+        /*tinymce.init({selector:'textarea'});*/
+        tinymce.init({
+            selector : 'textarea.note'
+        });
+</script>
+    <div class="jumbo">
+        <h2>{{ note.title | safe }}<h2>
+        <h3>Submitted By: {{note.author}} on {{ note.pub_date }}</h3>
+    </div>
+    <a href="{{ url_for('notes') }}">back</a>
+    <div class="container">
+         
+<pre class="prettyprint" white-space: pre-wrap; >
+{{ note.description | safe }}
+</pre>
+Category: {{ note.category }}
+
+    </div>
+
+{% endblock %}

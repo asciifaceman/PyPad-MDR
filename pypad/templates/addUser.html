@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% if session.email %}
+    <h2>Add User</h2>
+    <p>Anybody can view content. Only users can create content. Will be adding g-auth tokens eventually.</p>
+    <form action="{{ url_for('adduser') }}" method=post>
+        {{ form.hidden_tag() }}
+
+        {% for message in form.username.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.username.label }}
+        {{ form.username }}
+
+        {% for message in form.email.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.email.label }}
+        {{ form.email }}
+
+        {% for message in form.password.errors %}
+            <div class="flash"><h1 class="flash">{{ message }}</h1></div>
+        {% endfor %}
+        {{ form.password.label }}
+        {{ form.password }}
+
+        <pre>
+        <style> #display:block; </style>
+            {{ form.admin.label }}{{ form.admin }}        {{ form.secret.label }}{{ form.secret }}
+        </pre>
+        <br>
+        {{ form.submit }}
+    </form>
+    {% else %}
+    <h1> You do not have permission to access this area </h1>
+    {% endif %}
+
+{% endblock %}

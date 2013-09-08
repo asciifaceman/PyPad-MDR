@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="jumbo">
+        <h2>{{ snip.title }}<h2>
+        <h3>Submitted By: {{snip.author}} on {{ snipdate }}</h3>
+    </div>
+    <a href="{{ url_for('snippets') }}">back</a>
+    <div class="container">
+<h1>Description</h1>
+{{ snip.description | safe}}
+<h1>Code:</h1>
+<pre class="prettyprint" >
+{{ snip.snippet | safe }}
+</pre>
+Category: {{ snip.category }} | Language: {{ snip.language }}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="jumbo">
+        <h2>Current Users<h2>
+        <h3>There will be a list here, I promise (if you are logged in)<h3>
+    </div>
+    {% if session.email %}
+    <div class="container">
+    <table>
+        <thead>
+            <tr><th class="col1" width="50">ID</th><th class="col2" width="200">Username</th><th class="col3" width="300">Email</th><th class="col4" width="200">G-Auth</th><th class="col5" width="50">Admin</th><th width="300">Function</th></tr>
+        </thead>
+    {% for user in allusers %}
+
+        <tr><td>{{ user.id }}</td><td>{{ user.username }}</td><td>{{ user.email }}</td><td><a href="{{ url_for('moduser', function='getqr', username=user.username) }}">{{ user.secret }}</a></td><td>{{ user.admin }}</td><td><a href="{{ url_for('moduser', function='delete', username=user.username) }}" onclick="return confirm('Really delete user? This is permanant!')">Delete</a> | <a href="{{ url_for('moduser', function='admin', username=user.username) }}">Admin</a> | <a href="{{ url_for('moduser', function='gauth', username=user.username) }}">G-Auth</a></td></tr>
+        
+    {% else %}
+        <p>There are no users. That might be a problem</p>
+    {% endfor %}
+    </table>
+    </div>
+    {% else %}
+    <h1>You do not have permission to access this area.</h1>
+    {% endif %}
+{% endblock %}

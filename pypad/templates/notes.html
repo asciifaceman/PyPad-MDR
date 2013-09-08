@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="jumbo">
+        <h2>Existing Notes<h2>
+        <h3>Browse, delete, modify<h3>
+    </div>
+    {% if session.email %}
+    <div class="container">
+    <table>
+        <thead>
+            <tr><th class="col1" width="50">ID</th><th class="col2" width="200">Title</th><th class="col3" width="300">Category</th><th class="col4" width="150">Author</th><th class="col5" width="300">Created</th><th width="300">Functions</th></tr>
+        </thead>
+    {% for note in allnotes %}
+
+        <tr><td>{{ note.id }}</td><td>{{ note.title }}</td><td>{{ note.category }}</td><td>{{ note.author }}</td><td>{{ note.pub_date }}</td><td><a href="{{ url_for('modnote', function='delete', post_id=note.id) }}" onclick="return confirm('Really delete user? This is permanant!')">Delete</a> | <a href="{{ url_for('viewnote', post_id=note.id) }}">View</a> | <a href="{{ url_for('editnote', post_id=note.id) }}">Edit</a></tr>
+        
+    {% else %}
+        <p>There are no notes. That might or might not be a problem</p>
+    {% endfor %}
+    </table>
+    </div>
+    {% else %}
+    <h1>You do not have permission to access this area.</h1>
+    {% endif %}
+{% endblock %}
